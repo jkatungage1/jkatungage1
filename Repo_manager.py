@@ -4,7 +4,7 @@ PROJECT_DIR = os.path.normcase(Path(__file__).parent)
 
 def git_pull(*args) :
     # print('Running git pull...')
-    if "s" in args:
+    if "S" in args:
         print("Using Subprocess module")
         # USING SUBPROCESS MODULE
         try :
@@ -25,7 +25,7 @@ def git_pull(*args) :
             print("Finally block executed.")
             exit(0)
 
-    if "o" in args:
+    if "O" in args:
         print("Using OS module")
         # USING OS MODULE
         try :
@@ -80,7 +80,7 @@ def git_pull(*args) :
 
 def git_commit(*args):
     # print('Running git pull...')
-    if "s" in args:
+    if "S" in args:
         print("Using Subprocess module")
         # USING SUBPROCESS MODULE
         try :
@@ -103,13 +103,13 @@ def git_commit(*args):
             print("Finally block executed.")
             exit(0)
 
-    if "o" in args:
+    if "O" in args:
         print("Using OS module")
         # USING OS MODULE
         try :
             command = os.system(f"cd {PROJECT_DIR} && git add -u")
             commit_message = input("Enter commit message: ")
-            command = os.system(f"cd {PROJECT_DIR} && git commit -m {commit_message}")
+            command = os.system(f'cd {PROJECT_DIR} && git commit -m "{commit_message}"')
             assert command == 0
             print('Git status complete.')
             # time.sleep(5)
@@ -161,14 +161,14 @@ def git_commit(*args):
 def main(*args:str):
     os.system('cls' if os.name == 'nt' else 'clear')
     print(fr"{PROJECT_DIR}")
+    args = list(args)
     for car in args:
-        car.upper()
+        args[args.index(car)] = car.upper()
 
-    # git_pull(*args)
     git_commit(*args)
 
 
 
 
 if __name__ == '__main__':
-    main("s")
+    main("O","a","b","c")
