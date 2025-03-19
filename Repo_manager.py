@@ -78,15 +78,16 @@ def git_pull(*args) :
             print("Finally block executed.")
             exit(0)
 
-def git_commit(*args):
+def git_commit(repo_name:str, *args):
     # print('Running git pull...')
+
     if "S" in args:
         print("Using Subprocess module")
         # USING SUBPROCESS MODULE
         try :
-            command = subprocess.run(["git", "add" , "-u"], cwd=PROJECT_DIR, check=True)
+            command = subprocess.run(["git", "add" , "-u"], cwd=f"{PROJECT_DIR}\{repo_name}", check=True)
             commit_message = input("Enter commit message: ")
-            command = subprocess.run(["git", "commit", "-m", commit_message], cwd=PROJECT_DIR, check=True)
+            command = subprocess.run(["git", "commit", "-m", commit_message], cwd=f"{PROJECT_DIR}\{repo_name}", check=True)
             assert command.returncode == 0
             print('Git commit complete.')
             # time.sleep(5)
@@ -249,7 +250,7 @@ def git_clone(*args) -> str:
         finally:
             print("Finally block executed.")
             exit(0)
-            
+
     return repo_name
 
 
@@ -260,9 +261,11 @@ def main(*args:str):
     for car in args:
         args[args.index(car)] = car.upper()
 
-    os.system(fr'echo "Bonjour" > "{PROJECT_DIR}\deplo\{git_clone(*args)}\bonjour.txt"')
+    repo_name = git_clone(*args)
+    print(f"Repo name: {repo_name}")
+    os.system(fr'echo "Bonjour" > "{PROJECT_DIR}\deplo\{repo_name}\bonjour.txt"')
     input()
-    git_commit(*args)
+    git_commit(repo_name=repo_name,*args)
     # git_pull(*args)
 
 
