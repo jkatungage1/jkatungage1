@@ -1,4 +1,4 @@
-import os, subprocess, time, git; from pathlib import Path
+import sys, os, subprocess, time, git; from pathlib import Path
 from git import Repo
 PROJECT_DIR = os.path.normcase(Path(__file__).parent)
 
@@ -173,5 +173,13 @@ def main(*args:str):
 
 
 if __name__ == '__main__':
-    main("s","b","c")
-    #no
+    
+    if len(sys.argv) > 1:
+        for i, arg in enumerate(sys.argv[1:], start=1):
+            print(f"Argument {i}: {arg}")
+        time.sleep(10)
+    else: print("No arguments provided.")
+    a = [s for s in sys.argv[1:]]
+    
+    main()
+    
