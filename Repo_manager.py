@@ -173,12 +173,12 @@ def main(*args:str):
 
 
 if __name__ == '__main__':
-    
+
     if len(sys.argv) > 1:
         for i, arg in enumerate(sys.argv[1:], start=1):
             print(f"Argument {i}: {arg}")
         time.sleep(10)
     else: print("No arguments provided.")
     a = [s for s in sys.argv[1:]]
-    main()
+    main(sys.argv[1] if len(sys.argv) > 1 else "")
 
