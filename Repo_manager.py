@@ -180,6 +180,5 @@ if __name__ == '__main__':
         time.sleep(10)
     else: print("No arguments provided.")
     a = [s for s in sys.argv[1:]]
-    
     main()
-    
+
