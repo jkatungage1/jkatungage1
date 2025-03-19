@@ -140,6 +140,7 @@ def git_commit(*args):
             git_cmd = deployment_repo.git
             # if not git_cmd.checkout("master"):
             #     None# git_cmd.checkout("master",b="Test")
+            git_cmd.status()
             commit_message = input("Enter commit message: ")
             assert git_cmd.add("-u") == ''
             assert git_cmd.commit("-m", f"{commit_message}") != ''
@@ -165,8 +166,6 @@ def main(*args:str):
         args[args.index(car)] = car.upper()
 
     git_commit(*args)
-
-
 
 
 if __name__ == '__main__':
