@@ -272,8 +272,9 @@ def main(*args:str):
         # git_pull(*args)
 
     elif "U" in args :
-        git_commit("",*args)
-        git_pull(*args)
+        args = list(input("Enter arguments : ").split(" "))
+        git_commit("",args[0].upper())
+        git_pull(args[0].upper())
 
     else :
         git_commit("",*args)
