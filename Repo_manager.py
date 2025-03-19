@@ -177,7 +177,8 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         for i, arg in enumerate(sys.argv[1:], start=1):
             print(f"Argument {i}: {arg}")
+            time.sleep(2)
     else: print("No arguments provided.")
-    a = [s for s in sys.argv[1:]]
-    main(sys.argv[1] if len(sys.argv) > 1 else "")
+    main(sys.argv[1] if len(sys.argv) > 1
+         else sys.argv[1],sys.argv[2] if len(sys.argv) > 2 else "")
 
