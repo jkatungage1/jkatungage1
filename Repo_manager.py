@@ -1,6 +1,7 @@
 import sys, os, subprocess, time, git, shutil; from pathlib import Path
 from git import Repo
 PROJECT_DIR = os.path.normcase(Path(__file__).parent)
+DEPLO_DIR = os.path.normcase(fr"{PROJECT_DIR}\deplo\\")
 
 def git_pull(*args) :
     # print('Running git pull...')
@@ -85,9 +86,10 @@ def git_commit(repo_name:str, *args):
         print("Using Subprocess module")
         # USING SUBPROCESS MODULE
         try :
-            command = subprocess.run(["git", "add" , "-u"], cwd=f"{PROJECT_DIR}\{repo_name}", check=True)
+            command = subprocess.run(["git", "add" , "-u"], cwd=f'{DEPLO_DIR}{repo_name}', check=True)
+            command = subprocess.run(["git", "add", "*"], cwd=f'{DEPLO_DIR}{repo_name}', check=True)
             commit_message = input("Enter commit message: ")
-            command = subprocess.run(["git", "commit", "-m", commit_message], cwd=f"{PROJECT_DIR}\{repo_name}", check=True)
+            command = subprocess.run(["git", "commit", "-m", commit_message], cwd=f"{DEPLO_DIR}{repo_name}", check=True)
             assert command.returncode == 0
             print('Git commit complete.')
             # time.sleep(5)
@@ -164,7 +166,7 @@ def git_commit(repo_name:str, *args):
 
 def git_clone(*args) -> str:
     # print('Running git pull...')
-    if "S" in args:
+    if 'S' in args[0]:
         print("Using Subprocess module")
         # USING SUBPROCESS MODULE
         try :
@@ -218,53 +220,55 @@ def git_clone(*args) -> str:
 
     else:
         # USING git MODULE
-        print("Using git module")
-        try :
-            deployment_repo = Repo(PROJECT_DIR)
-            assert not deployment_repo.bare
-            master = deployment_repo.heads.master
-            # git_pull()
-            log = master.log()
-            print(log[0])
+        # print("Using git module")
+        # try :
+        #     deployment_repo = Repo(PROJECT_DIR)
+        #     assert not deployment_repo.bare
+        #     master = deployment_repo.heads.master
+        #     # git_pull()
+        #     log = master.log()
+        #     print(log[0])
 
-            git_cmd = deployment_repo.git
-            # if not git_cmd.checkout("master"):
-            #     None# git_cmd.checkout("master",b="Test")
-            if "nothing" in git_cmd.status() :
-                print("No changes to commit")
-                exit(0)
-            else :
-                commit_message = input("Enter commit message: ")
-                assert git_cmd.add("-u") == ''
-                assert git_cmd.commit("-m", f"{commit_message}") != ''
+        #     git_cmd = deployment_repo.git
+        #     # if not git_cmd.checkout("master"):
+        #     #     None# git_cmd.checkout("master",b="Test")
+        #     if "nothing" in git_cmd.status() :
+        #         print("No changes to commit")
+        #         exit(0)
+        #     else :
+        #         commit_message = input("Enter commit message: ")
+        #         assert git_cmd.add("-u") == ''
+        #         assert git_cmd.commit("-m", f"{commit_message}") != ''
 
 
-        except AssertionError as e:
-            print("Unknown Assertion Error" if str(e) == "" else f"Assertion Error : {e}")
-            exit(1)
+        # except AssertionError as e:
+        #     print("Unknown Assertion Error" if str(e) == "" else f"Assertion Error : {e}")
+        #     exit(1)
 
-        except Exception as e:
-            print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
-            exit(1)
+        # except Exception as e:
+        #     print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
+        #     exit(1)
 
-        finally:
-            print("Finally block executed.")
-            exit(0)
+        # finally:
+        #     print("Finally block executed.")
+        #     exit(0)
+        None
 
     return repo_name
 
 
 def main(*args:str):
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(fr"{PROJECT_DIR}")
+    print(fr"{DEPLO_DIR}")
     args = list(args)
     for car in args:
         args[args.index(car)] = car.upper()
 
-    repo_name = git_clone(*args)
+
+    repo_name = git_clone(args)
     print(f"Repo name: {repo_name}")
-    os.system(fr'echo "Bonjour" > "{PROJECT_DIR}\deplo\{repo_name}\bonjour.txt"')
-    git_commit(repo_name=repo_name,*args)
+    os.system(fr'echo "Bonjour" > "{DEPLO_DIR}{repo_name}\bonjour.txt"')
+    git_commit(repo_name,*args)
     # git_pull(*args)
 
 
