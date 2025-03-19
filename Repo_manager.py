@@ -18,7 +18,7 @@ def git_pull(*args) :
             exit(1)
 
         except Exception as e:
-            print(f"Error: {e}" if "git" in str(e) else 1)
+            print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
             exit(1)
 
         finally:
@@ -39,7 +39,7 @@ def git_pull(*args) :
             exit(1)
 
         except Exception as e:
-            print(f"Error: {e}" if "git" in str(e) else 1)
+            print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
             exit(1)
 
         finally:
@@ -57,8 +57,8 @@ def git_pull(*args) :
             print(log[0])
 
             git_cmd = deployment_repo.git
-            if not git_cmd.checkout("master"):
-                None# git_cmd.checkout("master",b="Test")
+            if not git_cmd.checkout("master").returncode == 0:
+                git_cmd.stash()
 
             assert git_cmd.pull("origin","master")
             # time.sleep(5)
@@ -71,7 +71,7 @@ def git_pull(*args) :
             exit(1)
 
         except Exception as e:
-            print(f"Error: {e}" if "git" in str(e) else 1)
+            print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
             exit(1)
 
         finally:
@@ -96,7 +96,7 @@ def git_commit(*args):
             exit(1)
 
         except Exception as e:
-            print(f"Error: {e}" if "git" in str(e) else 1)
+            print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
             exit(1)
 
         finally:
@@ -119,7 +119,7 @@ def git_commit(*args):
             exit(1)
 
         except Exception as e:
-            print(f"Error: {e}" if "git" in str(e) else 1)
+            print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
             exit(1)
 
         finally:
@@ -133,25 +133,24 @@ def git_commit(*args):
             deployment_repo = Repo(PROJECT_DIR)
             assert not deployment_repo.bare
             master = deployment_repo.heads.master
+            # git_pull()
             log = master.log()
             print(log[0])
 
             git_cmd = deployment_repo.git
-            if not git_cmd.checkout("master"):
-                None# git_cmd.checkout("master",b="Test")
+            # if not git_cmd.checkout("master"):
+            #     None# git_cmd.checkout("master",b="Test")
+            commit_message = input("Enter commit message: ")
+            assert git_cmd.add("-u") == ''
+            assert git_cmd.commit("-m", "Test commit")== ''
 
-            assert git_cmd.pull("origin","master")
-            # time.sleep(5)
-
-        except git.exc.GitCommandError as e:
-            print(f"Git Command Error: {e}")
 
         except AssertionError as e:
             print("Unknown Assertion Error" if str(e) == "" else f"Assertion Error : {e}")
             exit(1)
 
         except Exception as e:
-            print(f"Error: {e}" if "git" in str(e) else 1)
+            print(f"Error: {e}" if "git" in str(e) else "Uknonwn error")
             exit(1)
 
         finally:
@@ -171,4 +170,4 @@ def main(*args:str):
 
 
 if __name__ == '__main__':
-    main("O","a","b","c")
+    main("a","b","c")
