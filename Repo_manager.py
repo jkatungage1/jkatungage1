@@ -140,10 +140,13 @@ def git_commit(*args):
             git_cmd = deployment_repo.git
             # if not git_cmd.checkout("master"):
             #     None# git_cmd.checkout("master",b="Test")
-            git_cmd.status()
-            commit_message = input("Enter commit message: ")
-            assert git_cmd.add("-u") == ''
-            assert git_cmd.commit("-m", f"{commit_message}") != ''
+            if "nothing" in git_cmd.status() :
+                print("No changes to commit")
+                exit(0)
+            else :
+                commit_message = input("Enter commit message: ")
+                assert git_cmd.add("-u") == ''
+                assert git_cmd.commit("-m", f"{commit_message}") != ''
 
 
         except AssertionError as e:
