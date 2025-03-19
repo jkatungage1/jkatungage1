@@ -271,8 +271,8 @@ def main(*args:str):
         git_commit(repo_name,*args)
         # git_pull(*args)
 
-    elif "U" in args :
-        args = list(input("Enter arguments : ").split(" "))
+    elif "C" in args :
+        args = list(input("Enter arguments [s - o - None] : ").split(" "))
         git_commit("",args[0].upper())
         git_pull(args[0].upper())
 
