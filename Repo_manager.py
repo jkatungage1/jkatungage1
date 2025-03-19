@@ -1,5 +1,5 @@
 import sys, os, subprocess, time, git, shutil; from pathlib import Path
-from git import Repo
+from git import Repo; from DIR_del import removing_test_repo
 PROJECT_DIR = os.path.normcase(Path(__file__).parent)
 DEPLO_DIR = os.path.normcase(fr"{PROJECT_DIR}\deplo\\")
 
@@ -266,16 +266,19 @@ def main(*args:str):
         args[args.index(car)] = car.upper()
 
     if "T" in args :
-        repo_name = git_clone(args)
+        repo_name = git_clone("S")
         print(f"Repo name: {repo_name}")
         os.system(fr'echo "Bonjour" > "{DEPLO_DIR}{repo_name}\bonjour.txt"')
-        git_commit(repo_name,*args)
+        git_commit(repo_name,"S")
         # git_pull(*args)
 
     elif "C" in args :
         args = list(input("Enter arguments [s - o - None] : ").split(" "))
         git_commit("",args[0].upper())
         git_pull(args[0].upper())
+
+    elif "R" in args :
+        removing_test_repo()
 
     else :
         git_commit("",*args)
