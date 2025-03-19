@@ -264,12 +264,20 @@ def main(*args:str):
     for car in args:
         args[args.index(car)] = car.upper()
 
+    if "T" in args :
+        repo_name = git_clone(args)
+        print(f"Repo name: {repo_name}")
+        os.system(fr'echo "Bonjour" > "{DEPLO_DIR}{repo_name}\bonjour.txt"')
+        git_commit(repo_name,*args)
+        # git_pull(*args)
 
-    repo_name = git_clone(args)
-    print(f"Repo name: {repo_name}")
-    os.system(fr'echo "Bonjour" > "{DEPLO_DIR}{repo_name}\bonjour.txt"')
-    git_commit(repo_name,*args)
-    # git_pull(*args)
+    elif "U" in args :
+        git_commit(*args)
+        git_pull(*args)
+
+    else :
+        git_commit("",*args)
+        git_pull(*args)
 
 
 if __name__ == '__main__':
@@ -277,13 +285,18 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         for i, arg in enumerate(sys.argv[1:], start=1):
             print(f"Argument {i}: {arg}")
-            time.sleep(2)
-    else: print("No arguments provided.")
-    try :
-        main("s")
-        # main(sys.argv[1] if len(sys.argv) > 1
-        #     else sys.argv[1],sys.argv[2] if len(sys.argv) > 2 else "")
-    except Exception as e:
-        print(f"Error: {e}")
+        time.sleep(2)
+
+        try :
+            main(sys.argv[1] if len(sys.argv) > 1
+                else sys.argv[1],sys.argv[2] if len(sys.argv) > 2 else "")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+    else:
+        print("No arguments provided.")
+        main()
+
 
 
