@@ -142,7 +142,7 @@ def git_commit(*args):
             #     None# git_cmd.checkout("master",b="Test")
             commit_message = input("Enter commit message: ")
             assert git_cmd.add("-u") == ''
-            assert git_cmd.commit("-m", "Test commit")== ''
+            assert git_cmd.commit("-m", "Test commit") == ''
 
 
         except AssertionError as e:
