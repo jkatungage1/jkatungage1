@@ -166,6 +166,7 @@ def git_commit(repo_name:str, *args):
 
 def git_clone(*args) -> str:
     # print('Running git pull...')
+    repo_name = ''
     if 'S' in args[0]:
         print("Using Subprocess module")
         # USING SUBPROCESS MODULE
