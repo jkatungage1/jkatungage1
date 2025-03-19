@@ -264,7 +264,6 @@ def main(*args:str):
     repo_name = git_clone(*args)
     print(f"Repo name: {repo_name}")
     os.system(fr'echo "Bonjour" > "{PROJECT_DIR}\deplo\{repo_name}\bonjour.txt"')
-    input()
     git_commit(repo_name=repo_name,*args)
     # git_pull(*args)
 
