@@ -172,6 +172,6 @@ def main(*args:str):
 
 
 if __name__ == '__main__':
-    main("s","a","b","c")
+    main("a","b","c")
     #none
     
