@@ -169,9 +169,9 @@ def main(*args:str):
         args[args.index(car)] = car.upper()
 
     git_commit(*args)
+    git_pull(*args)
 
 
 if __name__ == '__main__':
     main("a","b","c")
     #no
-    
