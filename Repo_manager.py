@@ -272,7 +272,7 @@ def main(*args:str):
         # git_pull(*args)
 
     elif "U" in args :
-        git_commit(*args)
+        git_commit("",*args)
         git_pull(*args)
 
     else :
